@@ -1,0 +1,17 @@
+$INP
+block='1p',2p','ct'
+N=10
+maxv=5
+maxvct=5
+om0=1.0
+QF=1.41
+QA=1.0
+QC=1.0
+HINP='H.mat'
+$END
+
+$PLOT
+emin=-3
+emax=12
+sigma=0.28
+$END

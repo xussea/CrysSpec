@@ -1,0 +1,41 @@
+FC=gfortran
+FFLAGS=-O2 -fopenmp  -fdefault-integer-8  -m64 
+OUT=HModel_spec.exe 
+MKLROOT=/opt/intel/oneapi/mkl/latest/
+COMPROOT=/opt/intel/oneapi/compiler/latest/linux/compiler
+LINK=-Wl,--start-group -lmkl_gf_ilp64 -lmkl_intel_thread -lmkl_core -Wl,--end-group -liomp5 -lpthread -lm -ldl
+
+OBJ= emiutils.o Tspec.o general.o HR.o FC.o basis.o conv.o initH.o polarized.o readH.o readTDM.o wfa.o CD_intensity.o
+all: ${OBJ} main.f90 include/types.inc
+		${FC} ${FFLAGS} ${OBJ} main.f90 ${LINK} -o ${OUT}
+			mkdir -p ../bin
+				mv ${OUT} ../bin
+					rm *.o 
+general.o : general.f90
+		${FC} ${FFLAGS} -c general.f90
+HR.o : HR.f90
+		${FC} ${FFLAGS} -c HR.f90
+FC.o : FC.f90
+		${FC} ${FFLAGS} -c FC.f90
+basis.o : basis.f90
+		${FC} ${FFLAGS} -c basis.f90
+conv.o : conv.f90
+		${FC} ${FFLAGS} -c conv.f90
+initH.o : initH.f90
+		${FC} ${FFLAGS} -c initH.f90
+polarized.o : polarized.f90
+		${FC} ${FFLAGS} -c polarized.f90
+readH.o : readH.f90
+		${FC} ${FFLAGS} -c readH.f90
+readTDM.o : readTDM.f90
+		${FC} ${FFLAGS} -c readTDM.f90
+wfa.o : wfa.f90
+		${FC} ${FFLAGS} -c wfa.f90
+CD_intensity.o : CD_intensity.f90
+		${FC} ${FFLAGS} -c CD_intensity.f90
+Tspec.o : emiutils.o Tspec_CPL.f90
+		${FC} ${FFLAGS} -c Tspec_CPL.f90 -o Tspec.o
+emiutils.o : emiutils.f90
+		${FC} ${FFLAGS} -c emiutils.f90
+clean:
+		        rm -rf *.mod *.exe *.o

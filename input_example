@@ -1,0 +1,35 @@
+$INP
+block='1p' !Which blocks should be included in the Hamiltonian 1-particle (1p), 2-particle (2p), full CT basis (ct). Note that any simulation whithout 1p does not make sense
+N=2 ! Number of mnolecular sites
+maxv=2 !Number of maximum vibrational quanta in Frenkel excitons
+maxvct=5 !Number of maximum vibrational quanta in CT states
+om0=0.17 !Frecuency of the vibration in eV
+QF=1.141 !Adimensional displacement of the Frenkel states
+QA=0.59 !Adimensional displacement of the Anion
+QC=0.59 !Adimensional displacement of the Cation
+HINP='H.mat' !File with the electronic Hamiltonian matrix, and the electronic diabatic transition dipole moments
+aniso='x','y','z' !Optional. Specify which components of the transition dipole moment are activated for polarized spectra
+cutfile='' !if specified only uses the states on that file 
+$END 
+
+$PLOT
+emin=1.0  !Optional minimum energy in the plot data
+emax=4.0  !Optional maximum energy in the plot data
+sigma=0.05 !Optional Standard deviation uses for the convoluting functions
+npoints=10000 !Number of points for the spectrum resolution
+func='gauss' !Function used for the convolution "gauss" or "lorentz"
+$END
+
+$SPEC
+absorp=.T. !compute absorption spectra
+Absosc=.T. !compute absorption intensity as oscillator streghtn otherwise just square of transition dipole it is used
+Abstick=.F. !Print Stick spectrum for absorption
+wfa=.F. !print state block contribution to states
+ECD=.F. !compute ECD spectra
+emi=.F. !compute emission spectra
+redem=.F. !If true include the reduced emission intensitiesm otherwise only pure transition dipole moments are used
+Emiosc=.F. !compute emission intensity as oscillator streghtn adding a scaling factor of w**3 to intensities
+Emistick=.F. !Print Stick spectrum for absorption
+Eshift=2.3 ! Specify if some Energy shift was used in the Hamiltonian to correct the emission and absorption oscillator strenght intensities
+T=200 !Set temperature
+$END
